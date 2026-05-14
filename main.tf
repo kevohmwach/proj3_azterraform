@@ -220,7 +220,7 @@ module "security" {
   db_host_write                     = module.db.db_host
   db_host_read                      = module.db.db_host
   laravel_user_managed_principal_id = module.identity.laravel_user_managed_principal_id
-  app_key                           = var.laravel_credentials.env.appkey
+  app_key                           = var.laravel_appkey
   gtw_managed_user_principal_id     = module.identity.gtw_managed_user_principal_id
 
 }

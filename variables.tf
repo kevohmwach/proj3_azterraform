@@ -73,3 +73,6 @@ variable "staging_hostname" {
 variable "ssl_certificate_name" {
   type = string
 }
+variable "laravel_appkey" {
+  type = string
+}
