@@ -1,0 +1,13 @@
+azterraform.pfx
+cert.pem
+cert_cloudfare.pem
+credentials.tf
+gradestar-origin.pfx
+key.pem
+key_cloudfare.pem
+private_cloudfare.key
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+.terraform
+.terraform.lock.hcl
