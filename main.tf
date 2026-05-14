@@ -126,7 +126,7 @@ module "appservice" {
   gtw_ip_address                 = module.network.public_ip_address
   prod_hostname                  = var.prod_hostname
   staging_hostname               = var.staging_hostname
-  
+
 
 }
 module "gateway" {
