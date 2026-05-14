@@ -5,21 +5,21 @@ data "azurerm_key_vault_secret" "ssl_cert" {
 }
 
 locals {
-  backend_port = 443
+  backend_port     = 443
   backend_protocol = "Https"
-  
-  prod_port = 80
+
+  prod_port    = 80
   staging_port = 8080
-  protocol = "Http"
+  protocol     = "Http"
 
-  prod_https_listener_name = "prod-https-listener"
-  prod_http_listener_name = "prod-http-listener"
+  prod_https_listener_name    = "prod-https-listener"
+  prod_http_listener_name     = "prod-http-listener"
   staging_https_listener_name = "staging-https-listener"
-  staging_http_listener_name = "staging-http-listener"
+  staging_http_listener_name  = "staging-http-listener"
 
-  host_names_port = 443
-  host_names_protocol = "Https"
-  redirect_configuration_name_prod = "http-to-https"
+  host_names_port                     = 443
+  host_names_protocol                 = "Https"
+  redirect_configuration_name_prod    = "http-to-https"
   redirect_configuration_name_staging = "staging-http-to-https"
 }
 # Application Gateway
@@ -77,17 +77,17 @@ resource "azurerm_application_gateway" "appgw" {
   }
 
   # Points to the specific FQDN of staging slot
-    backend_address_pool {
+  backend_address_pool {
     name  = "staging-pool"
     fqdns = [replace(replace(var.webapp_url_staging, "/^https?:///", ""), "///", "")]
-    }
+  }
 
   backend_http_settings {
-    name                  = "${local.backend_protocol}-backend-settings"
-    cookie_based_affinity = "Disabled"
-    port                  = local.backend_port
-    protocol              = local.backend_protocol
-    request_timeout       = 60
+    name                                = "${local.backend_protocol}-backend-settings"
+    cookie_based_affinity               = "Disabled"
+    port                                = local.backend_port
+    protocol                            = local.backend_protocol
+    request_timeout                     = 60
     pick_host_name_from_backend_address = true
   }
 
@@ -98,33 +98,33 @@ resource "azurerm_application_gateway" "appgw" {
   #   frontend_port_name             = "port_${local.prod_port}"
   #   protocol                       = local.protocol
   # }
-#   # Stagging http listener
-#   http_listener {
-#   name                           = local.staging_http_listener_name
-#   frontend_ip_configuration_name = "frontend_ip_config"
-#   frontend_port_name             = "port_${local.staging_port}"
-#   protocol                       = local.protocol
-# }
+  #   # Stagging http listener
+  #   http_listener {
+  #   name                           = local.staging_http_listener_name
+  #   frontend_ip_configuration_name = "frontend_ip_config"
+  #   frontend_port_name             = "port_${local.staging_port}"
+  #   protocol                       = local.protocol
+  # }
 
 
-http_listener {
+  http_listener {
     name                           = local.prod_https_listener_name
     frontend_ip_configuration_name = "frontend_ip_config"
     frontend_port_name             = "port_${local.host_names_port}"
     protocol                       = local.host_names_protocol
     ssl_certificate_name           = var.ssl_certificate_name
     host_name                      = var.prod_hostname # 
-}
+  }
 
-http_listener {
+  http_listener {
     name                           = local.staging_https_listener_name
     frontend_ip_configuration_name = "frontend_ip_config"
     frontend_port_name             = "port_${local.host_names_port}"
     protocol                       = local.host_names_protocol
     ssl_certificate_name           = var.ssl_certificate_name
     host_name                      = var.staging_hostname # 
-}
-# Redirect HTTP to HTTPS (production)
+  }
+  # Redirect HTTP to HTTPS (production)
   http_listener {
     name                           = local.prod_http_listener_name
     frontend_ip_configuration_name = "frontend_ip_config"
@@ -141,71 +141,71 @@ http_listener {
     host_name                      = var.staging_hostname # 
   }
 
-#   # Production routing rule
-#   request_routing_rule {
-#     name                       = "rule-1"
-#     rule_type                  = "Basic"
-#     http_listener_name         = local.prod_http_listener_name
-#     backend_address_pool_name  = "prod-pool"
-#     backend_http_settings_name = "${local.backend_protocol}-backend-settings"
-#     priority                   = 1
-#   }
-#   # Stagging routing rule
-#   request_routing_rule {
-#   name                       = "staging-rule"
-#   rule_type                  = "Basic"
-#   http_listener_name         = local.staging_http_listener_name
-#   backend_address_pool_name  = "staging-pool"
-#   backend_http_settings_name = "${local.backend_protocol}-backend-settings" # Can reuse the same settings
-#   priority                   = 20
-# }
+  #   # Production routing rule
+  #   request_routing_rule {
+  #     name                       = "rule-1"
+  #     rule_type                  = "Basic"
+  #     http_listener_name         = local.prod_http_listener_name
+  #     backend_address_pool_name  = "prod-pool"
+  #     backend_http_settings_name = "${local.backend_protocol}-backend-settings"
+  #     priority                   = 1
+  #   }
+  #   # Stagging routing rule
+  #   request_routing_rule {
+  #   name                       = "staging-rule"
+  #   rule_type                  = "Basic"
+  #   http_listener_name         = local.staging_http_listener_name
+  #   backend_address_pool_name  = "staging-pool"
+  #   backend_http_settings_name = "${local.backend_protocol}-backend-settings" # Can reuse the same settings
+  #   priority                   = 20
+  # }
 
-redirect_configuration {
+  redirect_configuration {
     name                 = local.redirect_configuration_name_prod
     redirect_type        = "Permanent"
     target_listener_name = local.prod_https_listener_name
     include_path         = true
     include_query_string = true
-}
+  }
 
-redirect_configuration {
-  name                 = local.redirect_configuration_name_staging
-  redirect_type        = "Permanent"
-  target_listener_name = local.staging_https_listener_name
-  include_path         = true
-  include_query_string = true
-}
+  redirect_configuration {
+    name                 = local.redirect_configuration_name_staging
+    redirect_type        = "Permanent"
+    target_listener_name = local.staging_https_listener_name
+    include_path         = true
+    include_query_string = true
+  }
 
-request_routing_rule {
+  request_routing_rule {
     name                       = "prod-rule"
     rule_type                  = "Basic"
     priority                   = 10
     http_listener_name         = local.prod_https_listener_name
     backend_address_pool_name  = "prod-pool"
     backend_http_settings_name = "${local.backend_protocol}-backend-settings"
-}
-request_routing_rule {
+  }
+  request_routing_rule {
     name                       = "staging-rule"
     rule_type                  = "Basic"
     priority                   = 20
     http_listener_name         = local.staging_https_listener_name
     backend_address_pool_name  = "staging-pool"
     backend_http_settings_name = "${local.backend_protocol}-backend-settings"
-}
-request_routing_rule {
-  name                        = "http-redirect-rule"
-  priority                    = 30
-  rule_type                   = "Basic"
-  http_listener_name          = local.prod_http_listener_name
-  redirect_configuration_name = local.redirect_configuration_name_prod
-}
-request_routing_rule {
-  name                        = "staging-http-redirect-rule"
-  priority                    = 40
-  rule_type                   = "Basic"
-  http_listener_name          = local.staging_http_listener_name
-  redirect_configuration_name = local.redirect_configuration_name_staging
-}
+  }
+  request_routing_rule {
+    name                        = "http-redirect-rule"
+    priority                    = 30
+    rule_type                   = "Basic"
+    http_listener_name          = local.prod_http_listener_name
+    redirect_configuration_name = local.redirect_configuration_name_prod
+  }
+  request_routing_rule {
+    name                        = "staging-http-redirect-rule"
+    priority                    = 40
+    rule_type                   = "Basic"
+    http_listener_name          = local.staging_http_listener_name
+    redirect_configuration_name = local.redirect_configuration_name_staging
+  }
 
   firewall_policy_id = var.waf_policy_id
 }

@@ -35,7 +35,7 @@ variable "webapp_default_url" {
   type = string
 }
 variable "custom_domain_enabled" {
-  type = bool
+  type    = bool
   default = false
 }
 

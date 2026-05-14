@@ -69,11 +69,11 @@ variable "appinsights_id" {
 
 # security variables 
 variable "key_vault_secret_id_appkey" {
-  type = string
+  type        = string
   description = "Appkey"
 }
 variable "key_vault_secret_id_app_url" {
-  type = string
+  type        = string
   description = "App URL"
 }
 variable "laravel_user_managed_id" {

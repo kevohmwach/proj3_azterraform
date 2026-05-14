@@ -37,16 +37,16 @@ resource "azurerm_consumption_budget_resource_group" "elara_budget" {
   }
 
   notification {
-    enabled   = true
-    threshold = 50.0 # Alert at $5
-    operator  = "GreaterThan"
+    enabled        = true
+    threshold      = 50.0 # Alert at $5
+    operator       = "GreaterThan"
     contact_emails = [var.alert_email]
   }
 
   notification {
-    enabled   = true
-    threshold = 100.0 # Alert at $10
-    operator  = "GreaterThan"
+    enabled        = true
+    threshold      = 100.0 # Alert at $10
+    operator       = "GreaterThan"
     contact_emails = [var.alert_email]
   }
 }

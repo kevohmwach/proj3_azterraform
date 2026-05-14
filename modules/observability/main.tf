@@ -31,7 +31,7 @@ resource "azurerm_monitor_diagnostic_setting" "webapp_logs" {
     category = "AppServiceConsoleLogs" # Captures your .sh script output
   }
   enabled_log {
-    category = "AppServiceHTTPLogs"    # Captures Nginx traffic
+    category = "AppServiceHTTPLogs" # Captures Nginx traffic
   }
 }
 
@@ -74,7 +74,7 @@ resource "azurerm_monitor_metric_alert" "db_cpu_alert" {
   resource_group_name = var.resource_group_name
   scopes              = [var.production_db_id]
   description         = "Action will be triggered when CPU exceeds 85% for 5 minutes."
-  severity            = 1 # 0: Critical, 1: Error, 2: Warning
+  severity            = 1      # 0: Critical, 1: Error, 2: Warning
   frequency           = "PT1M" # Check every minute
   window_size         = "PT5M" # Look at data over the last 5 minutes
 

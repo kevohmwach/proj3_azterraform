@@ -11,10 +11,10 @@ output "webapp_url_staging" {
 output "web_app_id" {
   value = azurerm_linux_web_app.Webapp_Laravel.id
 }
-output "app_service_principal_id" { 
+output "app_service_principal_id" {
   value = azurerm_linux_web_app.Webapp_Laravel.identity[0].principal_id
 }
-output "slot_principal_id" { 
+output "slot_principal_id" {
   value = azurerm_linux_web_app_slot.staging.identity[0].principal_id
 }
 # output "slot_name" { 

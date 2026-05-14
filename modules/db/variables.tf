@@ -14,7 +14,7 @@ variable "admin_user_email" {
 
 # App Service Variables
 variable "laravel_credentials" {
-  type = any
+  type        = any
   description = "Laravel db user and pass"
 }
 

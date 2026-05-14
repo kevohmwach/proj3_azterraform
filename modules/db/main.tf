@@ -3,17 +3,17 @@
 #   user_principal_name = var.admin_user_email
 # }
 resource "azurerm_mssql_server" "sql" {
-  name                         = "sql-laravel-${var.project_name}"
-  resource_group_name          = var.resource_group_name
-  location                     = var.location
-  version                      = "12.0"
-  
+  name                = "sql-laravel-${var.project_name}"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  version             = "12.0"
+
   # EXPERT SETTING: Total public lockdown
-  public_network_access_enabled = false 
+  public_network_access_enabled = false
 
   azuread_administrator {
-    login_username = "SqlAdmin"
-    object_id      = "2de0bb57-4820-46d6-9ad5-e03c38bcb48a" # Your Entra User ID
+    login_username              = "SqlAdmin"
+    object_id                   = "2de0bb57-4820-46d6-9ad5-e03c38bcb48a" # Your Entra User ID
     azuread_authentication_only = true
   }
 }

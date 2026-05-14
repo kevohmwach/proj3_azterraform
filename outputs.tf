@@ -8,12 +8,12 @@ output "debug_subscription_id" {
 
 # The URL of your Laravel Website
 output "webapp_url" {
-  value       = "${module.appservice.webapp_url}"
+  value       = module.appservice.webapp_url
   description = "The public URL of the Laravel App"
 }
 # Output for the Staging URL
 output "staging_url" {
-  value       = "${module.appservice.webapp_url_staging}"
+  value       = module.appservice.webapp_url_staging
   description = "The URL of the staging deployment slot"
 }
 

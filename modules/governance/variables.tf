@@ -18,14 +18,14 @@ variable "vnet_id" {
 #   type = string
 # }
 variable "project_name" {
-  type = string   
+  type = string
 }
 # variable "environment" {
 #   type = string
 # } 
 variable "alert_email" {
   type = string
-  
+
 }
 variable "subscription_id" {
   type = string

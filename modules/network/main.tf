@@ -93,7 +93,7 @@ resource "azurerm_public_ip" "appgw_pip" {
 # resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
 #   app_service_id = var.app_service_id
 #   subnet_id      = azurerm_subnet.appservice_subnet.id
-  
+
 #   depends_on = [time_sleep.wait_30_seconds]
 # }
 
@@ -102,7 +102,7 @@ resource "azurerm_public_ip" "appgw_pip" {
 #   app_service_id = var.app_service_id
 #   slot_name      = var.slot_name
 #   subnet_id      = azurerm_subnet.appservice_subnet.id
-  
+
 #   depends_on = [azurerm_app_service_virtual_network_swift_connection.vnet_integration]
 # }
 
