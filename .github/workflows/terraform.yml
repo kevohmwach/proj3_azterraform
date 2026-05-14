@@ -23,7 +23,7 @@ jobs:
 
       TF_VAR_ssl_certificate_name: ${{ secrets.SSL_CERT_NAME }}
       TF_VAR_kv_ssl_cert_name: ${{ secrets.KV_SSL_CERT_NAME }}
-      TF_VAR_laravel_credentials: ${{ secrets.LARAVEL_CREDENTIALS }}
+      TF_VAR_laravel_credentials: ${{ secrets.LARAVEL_CREDENTIALS.env }}
 
     steps:
       - name: Checkout Code
