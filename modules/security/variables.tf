@@ -17,9 +17,9 @@ variable "project_name" {
 variable "environment" {
   type = string
 }
-variable "db_password" {
-  type = string
-}
+# variable "db_password" {
+#   type = string
+# }
 
 # App Service Variables
 # variable "app_service_principal_id" {

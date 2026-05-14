@@ -13,10 +13,10 @@ variable "admin_user_email" {
 }
 
 # App Service Variables
-variable "laravel_credentials" {
-  type        = any
-  description = "Laravel db user and pass"
-}
+# variable "laravel_credentials" {
+#   type        = any
+#   description = "Laravel db user and pass"
+# }
 
 # Network variables
 variable "vnet_id" {

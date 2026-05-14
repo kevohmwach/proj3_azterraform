@@ -13,9 +13,9 @@ variable "location" {
 }
 
 # App Service Variables
-variable "laravel_credentials" {
-  type = any
-}
+# variable "laravel_credentials" {
+#   type = any
+# }
 variable "custom_domain_name" {
   type = string
 }

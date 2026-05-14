@@ -21,6 +21,10 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_USE_OIDC: true
 
+      TF_VAR_ssl_certificate_name: ${{ secrets.SSL_CERT_NAME }}
+      TF_VAR_kv_ssl_cert_name: ${{ secrets.KV_SSL_CERT_NAME }}
+      TF_VAR_laravel_credentials: ${{ secrets.LARAVEL_CREDENTIALS }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -36,7 +40,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color"
         continue-on-error: true
 
       - name: Post Plan to PR

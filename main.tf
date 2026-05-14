@@ -126,25 +126,7 @@ module "appservice" {
   gtw_ip_address                 = module.network.public_ip_address
   prod_hostname                  = var.prod_hostname
   staging_hostname               = var.staging_hostname
-  laravel_credentials = {
-    pat : {
-      github_pat : var.laravel_credentials.pat.github_pat
-    }
-    repo : {
-      laravel_app_repo : var.laravel_credentials.repo.laravel_app_repo
-    }
-    branch : {
-      laravel_app_branch : var.laravel_credentials.branch.laravel_app_branch
-    }
-    db : {
-      admin_user : var.laravel_credentials.db.admin_user,
-      admin_pass : var.laravel_credentials.db.admin_pass
-    },
-
-    env : {
-      appkey = var.laravel_credentials.env.appkey
-    },
-  }
+  
 
 }
 module "gateway" {
@@ -179,12 +161,6 @@ module "db" {
   pe_subnet_id                   = module.network.pe_subnet_id
   project_name                   = var.project_name
   admin_user_email               = var.admin_user_email
-  laravel_credentials = {
-    db : {
-      admin_user : var.laravel_credentials.db.admin_user,
-      admin_pass : var.laravel_credentials.db.admin_pass
-    },
-  }
 
 }
 
@@ -235,7 +211,6 @@ module "security" {
   # slot_principal_id = module.appservice.slot_principal_id
   project_name          = var.project_name
   environment           = var.environment
-  db_password           = var.laravel_credentials.db.admin_pass
   app_service_subnet_id = module.network.appservice_subnet_id
   custom_domain_name    = var.custom_domain_name
   webapp_default_url    = var.webapp_default_url
