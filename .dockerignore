@@ -1,5 +1,0 @@
-# .dockerignore
-vendor/
-node_modules/
-.git
-.env

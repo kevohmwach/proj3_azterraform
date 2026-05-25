@@ -40,10 +40,10 @@ variable "waf_subnet_prefix" {
 #   description = "Laravel app github repo"
 #   default = "https://github.com/kevohmwach/ElaraH.git"
 # }
-variable "laravel_credentials" {
-  type        = any
-  description = "Laravel db user and pass"
-}
+# variable "laravel_credentials" {
+#   type        = any
+#   description = "Laravel db user and pass"
+# }
 variable "email_address" {
   type        = any
   description = "List of email addresses to receive alerts"
