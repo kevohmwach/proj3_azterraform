@@ -15,3 +15,10 @@ az policy definition list --query "[?displayName=='Allowed locations'].{Name:nam
 az group create --name gradestar-admin-rg --location eastus
 az storage account create --name gradestartfstate --resource-group gradestar-admin-rg --sku Standard_LRS
 az storage container create --name tfstate --account-name gradestartfstate
+
+# Import SSL Cert into keyvault
+az keyvault certificate import \
+    --vault-name "kv-policy-gov-production" \
+    --name "gradestar-pfx" \
+    --file "gradestar-origin.pfx" \
+    --password "gradestar123"

@@ -33,7 +33,7 @@ resource "azurerm_consumption_budget_resource_group" "elara_budget" {
   time_grain        = "Monthly"
 
   time_period {
-    start_date = "2026-04-01T00:00:00Z" # Must be 1st of the month
+    start_date = "2026-05-01T00:00:00Z" # Must be 1st of the month
   }
 
   notification {
